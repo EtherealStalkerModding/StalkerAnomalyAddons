@@ -73,10 +73,7 @@ function first_greeting_bar()
 				news_manager.send_tip(actor, gt("st_duty_bar_first_greet_for_army_"..randnum_1), nil, "ui\\ui_icon_news_trx_dolg", 6000) -- pda message
 						
 			elseif actor:character_community() == "actor_ecolog" then -- special greeting for ecolog actor
-				printf("bar eco cond +")
-				printf("info given")
 				actor:give_info_portion("hi_bar_duty_first_greet_done") 
-				printf("cond2 3rd br +")
 				news_manager.send_tip(actor, gt("st_duty_bar_first_greet_for_ecolog_"..randnum_1), nil, "ui\\ui_icon_news_trx_dolg", 6000)
 			elseif actor:character_community() == "dolg" then
 				--do nothing
