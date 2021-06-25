@@ -1,0 +1,170 @@
+--[[
+first, there is a combined helmet
+values define what items will be added to the inventory when splitting a combined helmet
+--]]
+
+helms_table = 
+{
+
+	["helm_hardhat_clothmask"] = 
+	{
+	"helm_hardhat",
+	"helm_cloth_mask"
+	},
+
+	["helm_hardhat_bala"] = 
+	{
+	"helm_hardhat", 
+	 "helm_rp_bala"
+	},
+	
+	["helm_hardhat_resp"] = 
+	{
+	"helm_hardhat", 
+	 "helm_resp"
+	},
+	
+	["helm_hardhat_respirator"] = 
+	{
+	"helm_hardhat", 
+	 "helm_respirator"
+	},
+	
+	["helm_hardhat_respirator_old"] = 
+	{
+	"helm_hardhat", 
+	 "helm_respirator_old"
+	},
+	
+	["helm_hardhat_respirator_gp5"] = 
+	{
+	"helm_hardhat", 
+	 "helm_respirator_gp5"
+	},
+	
+	["helm_hardhat_m40"] = 
+	{
+	"helm_hardhat", 
+	 "helm_m40"
+	},
+	
+	["helm_hardhat_ppm88"] = 
+	{
+	"helm_hardhat", 
+	 "helm_ppm88"
+	},
+	
+	["helm_hardhat_m50"] = 
+	{
+	"helm_hardhat", 
+	 "helm_m50"
+	},
+	
+	["helm_hardhat_ranger"] = 
+	{
+	"helm_hardhat", 
+	 "helm_ranger"
+	},
+
+	["helm_ach7_clothmask"] = 
+	{
+	"helm_ach7",
+	"helm_cloth_mask"
+	},
+
+	["helm_ach7_bala"] = 
+	{
+	"helm_ach7", 
+	 "helm_rp_bala"
+	},
+	
+	["helm_ach7_resp"] = 
+	{
+	"helm_ach7", 
+	 "helm_resp"
+	},
+	
+	["helm_ach7_respirator"] = 
+	{
+	"helm_ach7", 
+	 "helm_respirator"
+	},
+	
+	["helm_ach7_respirator_old"] = 
+	{
+	"helm_ach7", 
+	 "helm_respirator_old"
+	},
+	
+	["helm_ach7_respirator_gp5"] = 
+	{
+	"helm_ach7", 
+	 "helm_respirator_gp5"
+	},
+	
+	["helm_ach7_m40"] = 
+	{
+	"helm_ach7", 
+	 "helm_m40"
+	},
+	
+	["helm_ach7_ppm88"] = 
+	{
+	"helm_ach7", 
+	 "helm_ppm88"
+	},
+	
+	["helm_ach7_m50"] = 
+	{
+	"helm_ach7", 
+	 "helm_m50"
+	},
+	
+	["helm_ach7_ranger"] = 
+	{
+	"helm_ach7", 
+	 "helm_ranger"
+	}
+
+}
+
+-- this adds a new button in in-game inventory menu
+function menu_split_helmet(obj)
+
+	local p = obj:parent()
+	if not (p and p:id() == AC_ID) then return end
+	
+	local kind = ini_sys:r_string_ex(obj:section(),"kind") or nil
+	
+	if kind == "o_helmet" then
+		return game.translate_string("st_item_split")
+	end
+	
+end
+
+-- this defines what the button actually does
+function func_split_helmet(obj)
+
+	local sec = obj:section()
+	
+	local kind = ini_sys:r_string_ex(obj:section(),"kind") or nil
+	
+	if kind == "o_helmet" then
+		start(obj,sec)
+	end
+	
+end
+
+-- iterate through the table and create two specific items
+function start(obj, sec)
+
+	for k,v in pairs(helms_table) do
+		if sec == k then
+			alife_create_item(v[1], obj:parent())
+			alife_create_item(v[2], obj:parent())
+		end
+	end
+	
+	alife_release(obj)
+	
+end
